@@ -1,0 +1,38 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+
+uniform float _Scale;
+uniform float _VolumeSize;
+uniform int _DrawCount;
+RWTexture3D<float> _VolumeTexture;
+StructuredBuffer<float4> _AtomBuffer;
+
+[numthreads(128,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+	if(id.x > _DrawCount) return;
+
+	float halfVolumeSize = _VolumeSize * 0.5;
+	float4 atom = _AtomBuffer[id.x] * _Scale;	
+	
+	atom.w *= 1.00;
+
+	float3 center = atom.xyz + float3(halfVolumeSize, halfVolumeSize, halfVolumeSize);
+	
+	uint3 start = min( _VolumeSize, max( 0, center - round(atom.w) ));
+	uint3 end = min( _VolumeSize, max( 0, center + round(atom.w) ));
+	uint3 current = start;
+	
+	for(current.x = start.x; current.x <= end.x; current.x ++)
+	{
+		for(current.y = start.y; current.y <= end.y; current.y ++)
+		{
+			for(current.z = start.z; current.z <= end.z; current.z ++)
+			{							
+				float dist = length(current - center) / atom.w;
+				if(dist < 1) _VolumeTexture[current] = 1;				
+			}
+		}
+	}    
+}

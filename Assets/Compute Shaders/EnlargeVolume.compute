@@ -1,0 +1,42 @@
+﻿#pragma kernel CSMain
+
+Texture3D<float> _VolumeTextureIn;
+RWTexture3D<float> _VolumeTextureOut;
+
+#define KERNEL_RADIUS 1
+
+[numthreads(8,8,8)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{	
+	//_VolumeTextureOut[id.xyz] = _VolumeTextureIn[id.xyz];
+	//return;
+
+	float input = _VolumeTextureIn[id.xyz];
+	
+	// if voxel is atom we leave
+	if(input == 1)
+	{
+		_VolumeTextureOut[id.xyz] = 1;
+		return;
+	}
+
+	// if voxel is void we stay
+
+	float atomVoxelCount = 0;
+	float voxelCount = 0;
+
+	for(int x = - KERNEL_RADIUS; x <= KERNEL_RADIUS; x ++)
+	{
+		for(int y = - KERNEL_RADIUS; y <= KERNEL_RADIUS; y ++)
+		{
+			for(int z = - KERNEL_RADIUS; z <= KERNEL_RADIUS; z ++)
+			{	
+				voxelCount ++;
+				if(_VolumeTextureIn[id.xyz + uint3(x,y,z)] == 1)  atomVoxelCount ++;					
+			}
+		}
+	}
+
+	float value = (atomVoxelCount > 0 ) ? 1 : 0; 
+	_VolumeTextureOut[id.xyz] = input;
+}

@@ -1,0 +1,13 @@
+1.1
+- Added : Downsampling. You can choose to downsample the AO pass only or AO + Blur, so you can better control the speed-quality ratio depending on your scene.
+- Removed : Useless "Bilateral Threshold" parameter. This is now hardcoded into the shader.
+- Misc : Documentation update. The "Performances" section has been rewritten and populated with more useful data.
+
+1.0.2
+- Added a new quickstart launcher when you import or update SSAO Pro.
+- Added "About SSAO Pro" and "SSAO Pro Manual" in the Help menu.
+- Fixed : The effect wasn't working properly in DirectX mode using the forward rendering path and MSAA.
+- Misc : Various documentation fixes & additions.
+
+1.0.1
+- Initial release.

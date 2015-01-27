@@ -1,0 +1,11 @@
+﻿#pragma kernel CSMain
+
+uniform float _VolumeSize;
+Texture3D<float> _VolumeTextureIn;
+RWTexture3D<float> _VolumeTextureOut;
+
+[numthreads(8,8,8)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{	
+	_VolumeTextureOut[id.xyz] = _VolumeTextureIn[id.xyz];
+}

@@ -1,0 +1,31 @@
+﻿#pragma kernel CSMain
+
+uniform float _VolumeSize;
+Texture3D<float> _VolumeTextureIn;
+RWTexture3D<int> _VolumeTextureOut;
+
+[numthreads(32,32,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{	
+	//_VolumeTextureOut[id.xyz] = _VolumeTextureIn[id.xyz];
+	//return;
+
+	int currentVoidId = 0;
+		
+	float previousInValue = -1;
+	float currentInValue = 0;
+
+	uint3 idx = id;
+
+	for(uint z = 0; z < _VolumeSize; z ++)
+	{
+		idx.z = z;
+
+		currentInValue = _VolumeTextureIn[idx];
+
+		currentVoidId = ( currentInValue == 0  && currentInValue != previousInValue ) ? currentVoidId + 1 : currentVoidId;
+		_VolumeTextureOut[id.xyz] = ( currentInValue == 0 ) ? currentVoidId : 1 ;
+
+		previousInValue = currentInValue;
+	}	
+}

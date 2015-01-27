@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: ef946d2c5f4aaf6439d698baf879d4ee
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - compositeShader: {fileID: 4800000, guid: 9be4ceea0147eb24fae365196d42254b, type: 3}
+  - renderBackDepthShader: {fileID: 4800000, guid: 331e2ba5f7840c64d82d38ddea942a3c,
+      type: 3}
+  - rayMarchShader: {fileID: 4800000, guid: 4f97ff7cb0e264f46be0965e35eccc3f, type: 3}
+  - rayMarchMaskShader: {fileID: 4800000, guid: 560a5f544ad13174abbc9c9a662a8ca9,
+      type: 3}
+  - sphereDebugShader: {fileID: 4800000, guid: 363006603d7d5df48876c65fec0fc66f, type: 3}
+  - InitVolume: {fileID: 7200000, guid: 8dacf0a056a131e418a5c7f5fd974771, type: 3}
+  - InvertBlitVolume: {fileID: 7200000, guid: 4b706cb7f9ce0a64a936e642896fe9a3, type: 3}
+  - FillVolume: {fileID: 7200000, guid: 4e37f3dbd504a5d47bb3d320059434a1, type: 3}
+  - SkimVolume: {fileID: 7200000, guid: 0c5d7f80f861dba45b2eb8a9774d9121, type: 3}
+  - BlitVolume: {fileID: 7200000, guid: 4c8d2d78d7158d14aa443114be7c5f77, type: 3}
+  - MaskVolume: {fileID: 7200000, guid: d089d343c1b904d4fa5d218a6476fc60, type: 3}
+  - InvertVolume: {fileID: 7200000, guid: b509968f07c32904eab2930ed09b794b, type: 3}
+  - EnlargeVolume: {fileID: 7200000, guid: 381f69272032eca42a9aadd751696c73, type: 3}
+  - ReadbackTexture3D: {fileID: 7200000, guid: c020b4710c0e4584f9b70344bf8b2760, type: 3}
+  - CubeMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

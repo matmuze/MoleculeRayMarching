@@ -1,0 +1,40 @@
+﻿#pragma kernel CSMain
+
+uniform int _NumThreads;
+
+Texture3D<float> _VolumeTextureIn;
+RWTexture3D<float> _VolumeTextureOut;
+
+AppendStructuredBuffer<uint3> voxelsToProcessNext;
+ConsumeStructuredBuffer<uint3> voxelsToProcess;
+
+#define KERNEL_RADIUS 1
+
+[numthreads(128,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{	
+	if(id.x > _NumThreads) return;
+
+
+	uint3 currentVoxel = voxelsToProcess.Consume();
+	float input = _VolumeTextureIn[id.xyz];
+	
+	if(input == 1)
+	{		
+		return;
+	}
+
+	_VolumeTextureOut[id] = 1;
+
+	for(int x = - KERNEL_RADIUS; x <= KERNEL_RADIUS; x ++)
+	{
+		for(int y = - KERNEL_RADIUS; y <= KERNEL_RADIUS; y ++)
+		{
+			for(int z = - KERNEL_RADIUS; z <= KERNEL_RADIUS; z ++)
+			{	
+				voxelCount ++;
+				if(_VolumeTextureIn[id.xyz + uint3(x,y,z)] == 0)  atomVoidCount ++;					
+			}
+		}
+	}
+}
